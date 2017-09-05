@@ -9,6 +9,7 @@ new_file_name = os.path.join(subtitle_path, file_name.split(".")[0] + ".srt")
 old_file_name = os.path.join(subtitle_path, file_name)
 
 def process_subtitle(src_file, dst_file):
+    print(src_file)
     f = open(src_file)
     lines = f.readlines()
     f.close()
@@ -118,13 +119,21 @@ def process_subtitle(src_file, dst_file):
     f.close()
 
 
-base_path = "/root/tmp/Python for Finance with Zipline and Quantopian"
-for file_item in os.listdir(base_path):
-    if file_item.split(".")[-1] == "vtt":
-        #print(os.path.join(base_path, file_item))
-        #print(os.path.join(base_path, file_item[:-3] + "srt"))
-        #print(os.path.join(base_path, file_item[:-3] + "srt"))
-        process_subtitle(os.path.join(base_path, file_item), os.path.join(base_path, file_item[:-3] + "srt"))
+base_path = "E:/BaiduNetdiskDownload"
+abs_path = ""
+for folder_item in os.listdir(base_path):
+    if Path(os.path.join(base_path, folder_item)).is_dir():
+        abs_path = base_path + "/" + folder_item
+        for file_item in os.listdir(abs_path):
+            if file_item.split(".")[-1] == "vtt":
+            #print(os.path.join(base_path, file_item))
+            #print(os.path.join(base_path, file_item[:-3] + "srt"))
+            #print(os.path.join(base_path, file_item[:-3] + "srt"))
+                try:
+                   process_subtitle(os.path.join(abs_path, file_item), os.path.join(abs_path, file_item[:-3] + "srt"))
+                except:
+                    print("===================%s has error================="%(os.path.join(abs_path, file_item)))
+                    continue
 #process_subtitle(old_file_name, new_file_name)
 
 
