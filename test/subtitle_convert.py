@@ -9,7 +9,6 @@ new_file_name = os.path.join(subtitle_path, file_name.split(".")[0] + ".srt")
 old_file_name = os.path.join(subtitle_path, file_name)
 
 def process_subtitle(src_file, dst_file):
-    print(src_file)
     f = open(src_file)
     lines = f.readlines()
     f.close()
@@ -101,7 +100,7 @@ def process_subtitle(src_file, dst_file):
                 else:
                     tmp_list.append(item_new_line)
                 #print(item_new_line.split("-->")[0] + "-->" + total_end_time[end_point_index])
-                print(tmp_list[-1])
+                #print(tmp_list[-1])
                 end_point_index+=1
                 tmp_list.append("\n")
                 continue
