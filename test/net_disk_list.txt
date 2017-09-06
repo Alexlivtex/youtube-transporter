@@ -1,0 +1,19 @@
+/apps/bypy ($t $f $s $m $d):
+D 3D Graphing with Matplotlib 0 2017-09-03, 09:46:06
+D Big Data Analytics & Algorithmic Stock Trading _ Backtesting 0 2017-09-03, 16:04:23
+D Customizing Matplotlib Graphs and Charts 0 2017-09-03, 10:00:50
+D Data Analysis with Python and Pandas 0 2017-09-03, 10:04:47
+D Introduction to Algorithms 0 2017-09-04, 14:46:15
+D Live Matplotlib Graphs 0 2017-09-03, 09:57:37
+D Machine Learning for Forex and Stock 0 2017-09-03, 16:02:54
+D Machine Learning for Forex and Stock analysis and algorithmic trading 0 2017-09-03, 15:57:09
+D Machine Learning with Python 0 2017-09-03, 09:49:56
+D Matplotlib Tutorial Series - Graphing in Python 0 2017-09-03, 09:57:53
+D MIT 6.006 Introduction to Algorithms, Fall 2011 0 2017-09-04, 19:11:46
+D Monte Carlo Simulation with Python 0 2017-09-03, 10:09:17
+D Programming to Aid Fundamental Investing 0 2017-09-03, 10:03:07
+D Python for Finance with Zipline and Quantopian 0 2017-09-03, 09:44:26
+D Python Plays - Grand Theft Auto V 0 2017-09-04, 19:15:53
+D Scikit-learn Machine Learning with Python and SKlearn 0 2017-09-03, 09:47:42
+F Downloader.py 442 2017-09-04, 14:46:09 34f334b8aae25324a179e9685073df49
+F playlist.txt 1247 2017-09-04, 13:58:15 a0532800a2f96d30ff2068f26613b934

@@ -1,3 +1,3 @@
-from netdisk_upload.bypy import ByPy
-bp = ByPy()
-print(bp.list())
+from bypy import ByPy
+bp=ByPy()
+bp.list("3D Graphing with Matplotlib")
