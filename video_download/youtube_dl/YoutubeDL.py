@@ -950,6 +950,28 @@ class YoutubeDL(object):
 
             x_forwarded_for = ie_result.get('__x_forwarded_for_ip')
 
+            if self.params.get("simulate", False):
+                print(self.params.get('config_path'))
+                print(self.params.get('download_path'))
+                extra = {
+                    'n_entries': n_entries,
+                    'playlist': playlist,
+                    'playlist_id': ie_result.get('id'),
+                    'playlist_title': ie_result.get('title'),
+                    'extractor': ie_result['extractor'],
+                    'webpage_url': ie_result['webpage_url'],
+                    'webpage_url_basename': url_basename(ie_result['webpage_url']),
+                    'extractor_key': ie_result['extractor_key'],
+                }
+                try:
+                    with open(playlist + ".json", "w") as f:
+                        json_str = json.dumps(extra, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=True)
+                        f.write(json_str)
+                        f.close()
+                except:
+                    print("%s can not be created!!!"%(playlist + ".json"))
+                return ie_result
+
             for i, entry in enumerate(entries, 1):
                 self.to_screen('[download] Downloading video %s of %s' % (i, n_entries))
                 # This __x_forwarded_for_ip thing is a bit ugly but requires
