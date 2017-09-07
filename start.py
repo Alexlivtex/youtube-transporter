@@ -27,7 +27,7 @@ def my_hook(d):
 
 ydl_opts_simu = {
     'config_path':"~/Source",
-    'json_path': os.path.join(os.getcwd(), "json_folder"),
+    'json_path': "./",
     'download_path':"~/Youtube",
     'simulate' : True,
     'format': 'bestvideo/best',
@@ -84,6 +84,8 @@ def preload_local_data():
     for video_link_item in video_url_list:
         with youtube_dl.YoutubeDL(ydl_opts_simu) as ydl:
             ydl.download([video_link_item])
+
+    os.system("mv *.json json_folder/")
 
     if Path(net_disk_map).exists() and Path(net_disk_map).is_file():
         f_disk = open(net_disk_map, "r")
