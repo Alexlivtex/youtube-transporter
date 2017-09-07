@@ -951,8 +951,9 @@ class YoutubeDL(object):
             x_forwarded_for = ie_result.get('__x_forwarded_for_ip')
 
             if self.params.get("simulate", False):
-                print(self.params.get('config_path'))
-                print(self.params.get('download_path'))
+                #print(self.params.get('config_path'))
+                #print(self.params.get('download_path'))
+                print(self.params.get('json_path'))
                 extra = {
                     'n_entries': n_entries,
                     'playlist': playlist,
@@ -964,7 +965,7 @@ class YoutubeDL(object):
                     'extractor_key': ie_result['extractor_key'],
                 }
                 try:
-                    with open(playlist + ".json", "w") as f:
+                    with open(os.path.join(self.params.get('json_path'), playlist + ".json"), "w") as f:
                         json_str = json.dumps(extra, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=True)
                         f.write(json_str)
                         f.close()
