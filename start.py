@@ -27,6 +27,7 @@ def my_hook(d):
 
 ydl_opts_simu = {
     'config_path':"~/Source",
+    'json_path': os.path.join(os.getcwd(), "json_folder"),
     'download_path':"~/Youtube",
     'simulate' : True,
     'format': 'bestvideo/best',
