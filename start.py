@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from pathlib import Path
-import video_download.youtube_dl.YoutubeDL as YoutubeDL
-from bypy import ByPy
+import video_download.YoutubeDL as YoutubeDL
+import netdisk_upload.bypy as ByPy
 import os
 vide_file_name = "video_address"
 conf_file_name = "download.conf"
@@ -82,17 +82,25 @@ def preload_local_data():
         print(conf_var)
 
     for video_link_item in video_url_list:
-        with YoutubeDL.YoutubeDL(ydl_opts_simu) as ydl:
+        with YoutubeDL(ydl_opts_simu) as ydl:
             ydl.download([video_link_item])
 
     os.system("mv *.json json_folder/")
 
+    bp = ByPy.ByPy()
+    list_detail = bp.list()
+
+    '''
+    with open(net_disk_map, "w") as f_net_disk:
+        f_net_disk.write(str(bp.list()))
+        f_net_disk.close()
+    '''
     if Path(net_disk_map).exists() and Path(net_disk_map).is_file():
         f_disk = open(net_disk_map, "r")
         disk_content_lines = f_disk.readlines()
         f_disk.close()
         disk_content_lines = disk_content_lines[1:]
-        bp = ByPy()
+
         for disk_line in disk_content_lines:
             if disk_line.split(" ")[0] == "D":
                 folder_name = " ".join(disk_line.split(" ")[1: -3])
@@ -103,8 +111,7 @@ def preload_local_data():
                 net_disk_complete_map[" ".join(disk_line.split(" ")[1: -3])] = -1
         print(net_disk_complete_map)
 
-
-
+'''
     for folder, folder_detail in net_disk_complete_map.items():
         if Path(folder + ".json").exists() and Path(folder + ".json").is_file():
             with open(folder + ".json") as f:
@@ -112,5 +119,5 @@ def preload_local_data():
                 video_count = int(eval(json_content)["n_entries"])
                 if len(folder_detail) == video_count*2:
                     os.remove(folder + ".json")
-
+'''
 preload_local_data()

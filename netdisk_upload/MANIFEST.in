@@ -1,6 +1,0 @@
-include bypy/*.pem
-include LICENSE
-include README.md
-include HISTORY.md
-include HISTORY.rst
-include CONTRIBUTING.md
