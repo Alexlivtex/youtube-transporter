@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from pathlib import Path
-from video_download import youtube_dl
-from netdisk_upload.bypy import ByPy
+import video_download.youtube_dl.YoutubeDL as YoutubeDL
+from bypy import ByPy
 import os
 vide_file_name = "video_address"
 conf_file_name = "download.conf"
@@ -82,7 +82,7 @@ def preload_local_data():
         print(conf_var)
 
     for video_link_item in video_url_list:
-        with youtube_dl.YoutubeDL(ydl_opts_simu) as ydl:
+        with YoutubeDL.YoutubeDL(ydl_opts_simu) as ydl:
             ydl.download([video_link_item])
 
     os.system("mv *.json json_folder/")
