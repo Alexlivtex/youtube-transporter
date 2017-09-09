@@ -47,6 +47,7 @@ import pprint
 import socket
 import subprocess
 import shlex
+import pickle
 from collections import deque
 #from collections import OrderedDict
 from functools import partial
@@ -1275,8 +1276,15 @@ Possible fixes:
 		j = r.json()
 		self.jsonq.append(j)
 		pr("{} ({}):".format(remotedir, fmt))
+		file_name = "netdisk_map.pickle"
+		net_disk_list = []
 		for f in j['list']:
-			pr(self.__replace_list_format(fmt, f))
+			list_item = self.__replace_list_format(fmt, f)
+			#pr(list_item)
+			net_disk_list.append(list_item)
+		f = open(file_name, "w")
+		pickle.dump(net_disk_list, f)
+		f.close()
 
 		return const.ENoError
 

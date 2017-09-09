@@ -953,7 +953,7 @@ class YoutubeDL(object):
             if self.params.get("simulate", False):
                 #print(self.params.get('config_path'))
                 #print(self.params.get('download_path'))
-                print(self.params.get('json_path'))
+                #print(self.params.get('json_path'))
                 extra = {
                     'n_entries': n_entries,
                     'playlist': playlist,
@@ -965,8 +965,8 @@ class YoutubeDL(object):
                     'extractor_key': ie_result['extractor_key'],
                 }
                 try:
-                    with open(os.path.join(self.params.get('json_path'), playlist + ".json"), "w") as f:
-                        json_str = json.dumps(extra, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=True)
+                    with open(playlist + ".json", "w") as f:
+                        json_str = json.dumps(extra, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False)
                         f.write(json_str)
                         f.close()
                 except:
