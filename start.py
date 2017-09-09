@@ -115,7 +115,8 @@ def preload_local_data():
 
 
     for folder, folder_detail in net_disk_complete_map.items():
-        if Path(folder + ".json").exists() and Path(folder + ".json").is_file():
+        if os.path.exists(folder + u".json") and os.path.isfile(folder + u".json"):
+        #if Path(folder + ".json").exists() and Path(folder + ".json").is_file():
             with open(folder + ".json") as f:
                 json_content = f.read()
                 video_count = int(eval(json_content)["n_entries"])
