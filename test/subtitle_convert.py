@@ -26,6 +26,12 @@ def process_subtitle(src_file, dst_file):
         else:
             break
 
+    if subtitle_begin == 4 and len(lines[subtitle_begin].split(":")) == 5:
+        f = open(dst_file, "w")
+        f.writelines(lines[subtitle_begin:])
+        f.close()
+        return
+
     lines = lines[subtitle_begin:]
     for index in range(len(lines)):
         if lines[index] is "\n":
@@ -118,21 +124,19 @@ def process_subtitle(src_file, dst_file):
     f.close()
 
 
-base_path = "E:/BaiduNetdiskDownload"
+base_path = "/root/Source/youtube-transporter/file_example"
 abs_path = ""
 for folder_item in os.listdir(base_path):
     if Path(os.path.join(base_path, folder_item)).is_dir():
         abs_path = base_path + "/" + folder_item
-        for file_item in os.listdir(abs_path):
-            if file_item.split(".")[-1] == "vtt":
-            #print(os.path.join(base_path, file_item))
-            #print(os.path.join(base_path, file_item[:-3] + "srt"))
-            #print(os.path.join(base_path, file_item[:-3] + "srt"))
-                try:
-                   process_subtitle(os.path.join(abs_path, file_item), os.path.join(abs_path, file_item[:-3] + "srt"))
-                except:
-                    print("===================%s has error================="%(os.path.join(abs_path, file_item)))
-                    continue
-#process_subtitle(old_file_name, new_file_name)
+    else:
+        abs_path = base_path
+    for file_item in os.listdir(abs_path):
+        if file_item.split(".")[-1] == "vtt":
+            try:
+               process_subtitle(os.path.join(abs_path, file_item), os.path.join(abs_path, file_item[:-3] + "srt"))
+            except:
+               print("===================%s has error================="%(os.path.join(abs_path, file_item)))
+               continue
 
 
