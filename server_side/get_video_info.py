@@ -4,6 +4,10 @@ import os
 import pickle
 import shutil
 from bypy import ByPy
+import errno
+import signal
+from functools import wraps
+import time
 
 youtube_data_path = os.path.join("Data", "YoutubeVideo")
 video_address_path = os.path.join("config", "video_address")
@@ -14,9 +18,39 @@ finished_downloading_pickle_bak = os.path.join("config", "finished_youtube_bak.p
 finished_video_list = list()
 total_video_list = list()
 
+MAX_TIME_UPLOAD = 15*60
+MAX_TIME_UPLOAD_SLEEP = 5*60
+
+class TimeoutError(Exception):
+    pass
+
+def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
+    def decorator(func):
+        def _handle_timeout(signum, frame):
+            raise TimeoutError(error_message)
+
+        def wrapper(*args, **kwargs):
+            signal.signal(signal.SIGALRM, _handle_timeout)
+            signal.alarm(seconds)
+            try:
+                result = func(*args, **kwargs)
+            finally:
+                signal.alarm(0)
+            return result
+
+        return wraps(func)(wrapper)
+
+    return decorator
+
 def download_video(update=False):
     global finished_video_list
     global total_video_list
+
+    @timeout(MAX_TIME_UPLOAD)
+    def upload_bt_download(path):
+        bp = ByPy()
+        bp.upload(path)
+        bp.cleancache()
 
     f_total_videolist = open(video_address_path, "r")
     for line in f_total_videolist.readlines():
@@ -51,11 +85,17 @@ def download_video(update=False):
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([video_link])
 
-            bp = ByPy()
-            bp.upload("Data")
-            bp.cleancache()
-            shutil.rmtree(youtube_data_path)
-            os.mkdir(youtube_data_path)
+            while True:
+                try:
+                    upload_bt_download("Data")
+                    # os.system("rm -rf file_download/phub_download/*")
+                    shutil.rmtree(youtube_data_path)
+                    os.mkdir(youtube_data_path)
+                    break
+                except:
+                    print("phub upload video failed, try again!")
+                    time.sleep(MAX_TIME_UPLOAD_SLEEP)
+                    continue
 
             finished_video_list.append(video_link)
             f_finished = open(finished_downloading_pickle, "wb")
