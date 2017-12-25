@@ -46,12 +46,6 @@ def download_video(update=False):
     global finished_video_list
     global total_video_list
 
-    @timeout(MAX_TIME_UPLOAD)
-    def upload_bt_download(path):
-        bp = ByPy()
-        bp.upload(path)
-        bp.cleancache()
-
     f_total_videolist = open(video_address_path, "r")
     for line in f_total_videolist.readlines():
         if not line.strip() or line[0] == '#':
@@ -85,6 +79,12 @@ def download_video(update=False):
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([video_link])
 
+            @timeout(MAX_TIME_UPLOAD)
+            def upload_bt_download(path):
+                bp = ByPy()
+                bp.upload(path)
+                bp.cleancache()
+                
             while True:
                 try:
                     upload_bt_download("Data")
