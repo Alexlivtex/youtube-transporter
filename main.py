@@ -1,3 +1,6 @@
-import os
+from server_side.get_video_info import download_video
 
-video_address_file = os.path.join("config", "video_address")
+def main():
+    download_video(False)
+
+main()
