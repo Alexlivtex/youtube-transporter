@@ -1,6 +1,3 @@
-import os
-from pathlib import Path
-from shutil import copyfile
 
 '''
 file_name = "simple.vtt"
