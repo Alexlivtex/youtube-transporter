@@ -81,7 +81,7 @@ def download_video(update=False):
                 ydl.download([video_link])
 
             for sub_index in os.listdir(youtube_data_path):
-                if os.path.isdir(sub_index):
+                if os.path.isdir(os.path.join(youtube_data_path, sub_index)):
                     for sub_item in os.listdir(os.path.join(youtube_data_path, sub_index)):
                         if sub_item.split(".")[-1] == "vtt":
                             process_subtitle(os.path.join(youtube_data_path, sub_index, sub_item), os.path.join(youtube_data_path, sub_index, sub_item[:-6] + "srt"))
@@ -98,8 +98,8 @@ def download_video(update=False):
                 try:
                     upload_bt_download("Data")
                     # os.system("rm -rf file_download/phub_download/*")
-                    #shutil.rmtree(youtube_data_path)
-                    #os.mkdir(youtube_data_path)
+                    shutil.rmtree(youtube_data_path)
+                    os.mkdir(youtube_data_path)
                     break
                 except:
                     print("phub upload video failed, try again!")
