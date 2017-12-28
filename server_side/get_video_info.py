@@ -98,8 +98,8 @@ def download_video(update=False):
                 try:
                     upload_bt_download("Data")
                     # os.system("rm -rf file_download/phub_download/*")
-                    shutil.rmtree(youtube_data_path)
-                    os.mkdir(youtube_data_path)
+                    #shutil.rmtree(youtube_data_path)
+                    #os.mkdir(youtube_data_path)
                     break
                 except:
                     print("phub upload video failed, try again!")
