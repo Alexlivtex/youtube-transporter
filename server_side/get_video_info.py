@@ -8,6 +8,7 @@ import errno
 import signal
 from functools import wraps
 import time
+from .subtitle_convert import process_subtitle
 
 youtube_data_path = os.path.join("Data", "YoutubeVideo")
 video_address_path = os.path.join("config", "video_address")
@@ -78,6 +79,14 @@ def download_video(update=False):
             print("New video {} need to download!".format(video_link.strip()))
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([video_link])
+
+            for sub_index in os.listdir(youtube_data_path):
+                if os.path.isdir(sub_index):
+                    for sub_item in os.listdir(os.path.join(youtube_data_path, sub_index)):
+                        if sub_item.split(".")[-1] == "vtt":
+                            process_subtitle(os.path.join(youtube_data_path, sub_index, sub_item), os.path.join(youtube_data_path, sub_index, sub_item[:-6] + "srt"))
+
+
 
             @timeout(MAX_TIME_UPLOAD)
             def upload_bt_download(path):
